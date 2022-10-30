@@ -1,0 +1,307 @@
+body {
+  font-family: 'Poppins', sans-serif;
+  position: relative;
+}
+
+.text-overflow {
+  display: -webkit-box;
+  -webkit-line-clamp: 7;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.text-cyan {
+  color: rgb(20, 184, 166);
+}
+
+.fw-500 {
+  font-weight: 500;
+}
+
+.fw-600 {
+  font-weight: 600;
+}
+
+.fs-6 {
+  font-size: 1rem;
+}
+
+.fs-7 {
+  font-size: 0.8rem;
+}
+
+.rounded-4 {
+  border-radius: 0.5rem;
+}
+
+/* Horizontal Rule */
+
+.hr {
+  display: inline-block;
+}
+
+.hr::after {
+  content: '';
+  width: 50%;
+  display: block;
+  border: 2px solid rgb(20, 184, 166);
+  margin-top: 0.5rem;
+}
+
+/* Badge */
+
+.badge-starword {
+  color: rgb(255, 255, 255);
+  background-color: rgb(20, 184, 166);
+  border-color: rgb(20, 184, 166);
+}
+
+.badge-starword:hover {
+  color: rgb(255, 255, 255);
+  background-color: rgb(54, 194, 179);
+  border-color: rgb(54, 194, 179);
+}
+
+/* Button */
+
+.btn-starword-1 {
+  color: rgb(255, 255, 255);
+  background-color: rgb(20, 184, 166);
+  border-color: rgb(20, 184, 166);
+}
+
+.btn-starword-1:hover {
+  color: rgb(255, 255, 255);
+  background-color: rgb(54, 194, 179);
+  border-color: rgb(54, 194, 179);
+}
+
+.btn-check:focus + .btn-starword-1, .btn-starword-1:focus {
+  color: rgb(255, 255, 255);
+  background-color: rgb(54, 194, 179);
+  border-color: rgb(54, 194, 179);
+  box-shadow: 0 0 0 0.25rem rgba(11, 172, 204, 0.5);
+}
+
+.btn-check:checked + .btn-starword-1, .btn-check:active + .btn-starword-1, .btn-starword-1:active, .btn-starword-1.active, .show > .btn-starword-1.dropdown-toggle {
+  color: rgb(255, 255, 255);
+  background-color: rgb(54, 194, 179);
+  border-color: rgb(54, 194, 179);
+}
+
+.btn-check:checked + .btn-starword-1:focus, .btn-check:active + .btn-starword-1:focus, .btn-starword-1:active:focus, .btn-starword-1.active:focus, .show > .btn-starword-1.dropdown-toggle:focus {
+  box-shadow: 0 0 0 0.25rem rgba(11, 172, 204, 0.5);
+}
+
+.btn-starword-1:disabled, .btn-starword-1.disabled {
+  color: rgb(255, 255, 255);
+  background-color: rgb(20, 184, 166);
+  border-color: rgb(20, 184, 166);
+}
+
+.btn-starword-2 {
+  color: rgb(255, 255, 255);
+  background-color: rgb(15, 23, 42);
+  border-color: rgb(15, 23, 42);
+}
+
+.btn-starword-2:hover {
+  color: rgb(255, 255, 255);
+  background-color: rgb(15, 23, 42);
+  border-color: rgb(15, 23, 42);
+}
+
+.btn-check:focus + .btn-starword-2, .btn-starword-2:focus {
+  color: rgb(255, 255, 255);
+  background-color: rgb(15, 23, 42);
+  border-color: rgb(15, 23, 42);
+  box-shadow: 0 0 0 0.25rem rgba(66, 70, 73, 0.5);
+}
+
+.btn-check:checked + .btn-starword-2, .btn-check:active + .btn-starword-2, .btn-starword-2:active, .btn-starword-2.active, .show > .btn-starword-2.dropdown-toggle {
+  color: rgb(255, 255, 255);
+  background-color: rgb(15, 23, 42);
+  border-color: rgb(15, 23, 42);
+}
+
+.btn-check:checked + .btn-starword-2:focus, .btn-check:active + .btn-starword-2:focus, .btn-starword-2:active:focus, .btn-starword-2.active:focus, .show > .btn-starword-2.dropdown-toggle:focus {
+  box-shadow: 0 0 0 0.25rem rgba(66, 70, 73, 0.5);
+}
+
+.btn-starword-2:disabled, .btn-starword-2.disabled {
+  color: rgb(255, 255, 255);
+  background-color: rgb(15, 23, 42);
+  border-color: rgb(15, 23, 42);
+}
+
+/* Navbar Section */
+
+.navbar {
+  background-color: rgb(255, 255, 255, 0.05);
+  backdrop-filter: blur(0.5rem);
+}
+
+.navbar-light .navbar-nav .nav-link {
+  color: rgb(0, 0, 0);
+}
+.navbar-light .navbar-nav .nav-link:hover, .navbar-light .navbar-nav .nav-link:focus {
+  color: rgb(20, 184, 166);
+}
+
+.navbar.scrolled {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.nav-item {
+  margin: 0 0.5rem;
+}
+
+/* Jumbotron Section */
+
+.jumbotron {
+  height: 100vh;
+  background-image: radial-gradient(circle 993px at 0.5% 50.5%, rgba(137, 171, 245, 0.37) 0%, rgba(245, 247, 252, 1) 100.2%);
+}
+
+.jumbotron p {
+  color: rgb(0, 0, 0, 0.75);
+}
+
+/* About Section */
+
+.about {
+  padding: 5rem 0;
+  background-color: rgb(255, 255, 255);
+}
+
+.about p {
+  color: rgb(0, 0, 0, 0.75);
+}
+
+.about h3.hr::after {
+  margin-right: auto;
+}
+
+/* Features Section */
+
+.features {
+  padding: 5rem 0;
+  background-color: rgb(241, 245, 249);
+}
+
+.features p {
+  color: rgb(0, 0, 0, 0.75);
+}
+
+.features h3.hr::after {
+  margin-left: auto;
+}
+
+/* Student Feedback Section */
+
+.student-feedback {
+  padding: 5rem 0 12rem;
+  background-color: rgb(78, 112, 157);
+}
+
+.student-feedback .col-lg-12 {
+  margin-bottom: 4rem;
+}
+
+.student-feedback .col-lg-4 {
+  display: flex;
+  justify-content: center;
+}
+
+.student-feedback .col-lg-4 .card {
+  width: 300px;
+  height: 300px;
+  transform-style: preserve-3d;
+  perspective: 500px;
+  border: none;
+  background-color: inherit;
+}
+
+.student-feedback .col-lg-4 .card .card-body {
+  position: absolute;
+  color: rgb(255, 255, 255);
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+  border-radius: 15px;
+  background: rgba(255, 255, 255, 0.05);
+  transform-style: preserve-3d;
+  transition: 0.5s;
+  backface-visibility: hidden;
+  border-top: 1px solid rgb(221, 221, 221);
+  border-left: 1px solid rgb(221, 221, 221);
+}
+
+.student-feedback .col-lg-4 .card .card-body.front-card,
+.student-feedback .col-lg-4 .card .card-body.back-card {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.student-feedback .col-lg-4 .card .card-body.front-card .profile {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.student-feedback .col-lg-4 .card .card-body.front-card .name {
+  letter-spacing: 2px;
+}
+
+.student-feedback .col-lg-4 .card .card-body.front-card .designation {
+  color: rgba(255, 255, 255, 0.75);
+  letter-spacing: 0.8px;
+}
+
+.student-feedback .col-lg-4 .card:hover .card-body.front-card {
+  transform: rotateY(180deg);
+}
+
+.student-feedback .col-lg-4 .card .card-body.back-card {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.05);
+  transform: rotateY(180deg);
+  padding: 20px 30px;
+  text-align: center;
+  user-select: none;
+}
+
+.student-feedback .col-lg-4 .card .card-body.back-card .fa-quote-left {
+  position: absolute;
+  top: 25px;
+  left: 25px;
+  font-size: 1.2rem;
+}
+
+.student-feedback .col-lg-4 .card .card-body.back-card .fa-quote-right {
+  position: absolute;
+  right: 25px;
+  bottom: 35px;
+  font-size: 1.2rem;
+}
+
+.student-feedback .col-lg-4 .card:hover .card-body.back-card {
+  transform: rotateY(360deg);
+}
+
+/* Footer Section */
+
+.footer {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 7rem;
+  width: 100%;
+  background-color: rgb(15, 23, 42);
+}

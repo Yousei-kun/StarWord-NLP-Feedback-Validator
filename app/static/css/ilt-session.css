@@ -1,0 +1,43 @@
+/* ILT Session Section */
+
+.ilt-session {
+  min-height: 100vh;
+  padding: 5rem 0 12rem;
+  background-color: rgb(241, 245, 249);
+}
+
+/* ILT Session Selected Section */
+
+.ilt-session-selected {
+  padding: 3rem 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.ilt-session-selected .card {
+  background-image: url(../img/session.png);
+  background-position-y: top;
+  background-size: cover;
+  background-position: center;
+}
+
+.ilt-session-selected .card-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* ILT Session List Section */
+
+.ilt-session-list {
+  padding: 3rem 0;
+}
+
+.ilt-session-list a:hover {
+  color: rgb(20, 184, 166) !important;
+}
+
+.ilt-session-list .card-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}

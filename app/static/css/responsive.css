@@ -1,0 +1,91 @@
+@media screen and (max-width: 992px) {
+  /* Badge */
+
+  .badge-starword {
+    color: rgb(0, 0, 0) !important;
+    background-color: unset;
+    border-color: unset;
+    border-radius: unset;
+    padding: 8px 0 !important;
+  }
+
+  .badge-starword:hover {
+    color: rgb(20, 184, 166) !important;
+    background-color: unset;
+    border-color: unset;
+  }
+
+  /* Navbar Section */
+
+  .nav-item {
+    margin: 0;
+  }
+
+  /* Jumbotron Section */
+
+  .jumbotron .col-lg-8 {
+    margin-bottom: 1rem;
+  }
+
+  .jumbotron .col-lg-4 {
+    text-align: center;
+  }
+
+  /* About Section */
+
+  .about h3.hr::after {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .about .col-lg-12 {
+    text-align: center;
+    margin-bottom: 1.8rem !important;
+  }
+
+  .about-content-1 {
+    margin-bottom: 1rem;
+  }
+
+  /* Features Section */
+
+  .features h3.hr::after {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .features .col-lg-5 {
+    margin-bottom: 1rem;
+  }
+
+  /* Student Feedback Section */
+
+  .student-feedback .col-lg-4 {
+    margin-bottom: 2rem;
+  }
+
+  /* Admin ILT Session Section */
+
+  .dataTables_length {
+    margin-bottom: 0.5rem;
+  }
+
+  .admin-ilt-session .btn-primary {
+    margin: 0 0 0.5rem 0 !important;
+  }
+}
+
+@media screen and (max-width: 414px) {
+  /* ILT Session Selected Section */
+
+  .ilt-session-selected__header {
+    flex-direction: column;
+    align-items: flex-start !important;
+  }
+
+  /* Feedback Predicted Section */
+
+  .feedback-predicted h4 {
+    text-align: center;
+  }
+}

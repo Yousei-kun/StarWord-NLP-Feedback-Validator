@@ -1,0 +1,218 @@
+{% extends 'layouts/admin-base.html' %}
+
+{% block title %}StarWord Admin - ILT Session{% endblock %}
+
+{% block stylesheets %}
+<link rel="stylesheet" href="../static/css/admin-ilt-session.css">
+<link href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+<!-- Admin ILT Session Section Begin -->
+<div class="admin-ilt-session">
+  <div class="container">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    {% for category, message in messages %}
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+          <p class="mb-0">{{ message }}</p>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="card shadow-sm">
+          <div class="card-header">
+            <div class="d-flex justify-content-between align-items-center px-2">
+              <h4 class="fw-600 fs-5 mb-0">Sesi ILT</h4>
+              <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addIltSessionModal">Tambah Sesi ILT</button>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive p-2">
+              <table class="table table-bordered align-middle" id="dataTable" width="100%" cellspacing="0" style="margin: 1rem 0 2rem !important;">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th style="width: 25%;">Title</th>
+                    <th>Learning Path</th>
+                    <th>Session</th>
+                    <th style="width: 15%;">Mentor</th>
+                    <th style="width: 15%;">Datetime</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for ilt_session in ilt_session %}
+                  <tr>
+                    <td class="text-center">{{ ilt_session.id }}</td>
+                    <td>{{ ilt_session.title }}</td>
+                    <td>{{ ilt_session.learning_path }}</td>
+                    <td>{{ ilt_session.session_name }}</td>
+                    <td>{{ ilt_session.mentor }}</td>
+                    <td class="text-center">{{ datetime.strptime(ilt_session.date, '%Y-%m-%d').strftime('%d %b %Y') }}<span>({{ datetime.strptime(ilt_session.start_time, '%H:%M:%S').strftime('%H:%M') }} - {{ datetime.strptime(ilt_session.end_time, '%H:%M:%S').strftime('%H:%M') }})</span></td>
+                    <td class="text-center">
+                      <button class="btn btn-primary me-1" data-bs-toggle="modal" data-bs-target="#editIltSessionModal{{ ilt_session.id }}">
+                        <i class="fa-solid fa-pen fs-7"></i>
+                      </button>
+                      <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteData{{ ilt_session.id }}">
+                        <i class="fa-solid fa-trash fs-7"></i>
+                      </button>
+                    </td>
+                  </tr>
+
+                  <!-- Edit Form Section Begin -->
+                  <div class="modal fade" id="editIltSessionModal{{ ilt_session.id }}" tabindex="-1" aria-labelledby="editIltSessionModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="editIltSessionModalLabel">Edit Sesi ILT</h5>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                          <form id="editIltSessionForm{{ ilt_session.id }}" autocomplete="off" action="{{ url_for('admin_ilt_session') }}/update/{{ ilt_session.session_name }}" method="POST">
+                            <div class="mb-3">
+                              <label for="title" class="col-form-label">Judul</label>
+                              <input type="text" class="form-control" id="title" name="title" value="{{ ilt_session.title }}" required>
+                            </div>
+                            <div class="mb-3">
+                              <label for="learning-path" class="col-form-label">Learning Path</label>
+                              <select class="form-select" id="learning-path" name="learning-path" required>
+                                <option value="{{ ilt_session.learning_path }}" selected>{{ ilt_session.learning_path }}</option>
+                                <option value="Android">Android</option>
+                                <option value="Machine Learning">Machine Learning</option>
+                                <option value="Cloud Computing">Cloud Computing</option>
+                              </select>
+                            </div>
+                            <div class="mb-3">
+                              <label for="session-name" class="col-form-label">Nama Sesi ILT</label>
+                              <input type="text" class="form-control" id="session-name" name="session-name" value="{{ ilt_session.session_name }}" required>
+                            </div>
+                            <div class="mb-3">
+                              <label for="mentor" class="col-form-label">Mentor</label>
+                              <input type="text" class="form-control" id="mentor" name="mentor" value="{{ ilt_session.mentor }}" required>
+                            </div>
+                            <div class="mb-3">
+                              <label for="date" class="col-form-label">Date</label>
+                              <input type="date" class="form-control" id="date" name="date" value="{{ ilt_session.date }}" required>
+                            </div>
+                            <div class="mb-3">
+                              <label for="start-time" class="col-form-label">Waktu Mulai</label>
+                              <input type="time" class="form-control" id="start-time" name="start-time" value="{{ ilt_session.start_time }}" required>
+                            </div>
+                            <div class="mb-3">
+                              <label for="start-end" class="col-form-label">Waktu Berakhir</label>
+                              <input type="time" class="form-control" id="end-time" name="end-time" value="{{ ilt_session.end_time }}" required>
+                            </div>
+                          </form>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="submit" class="btn btn-starword-2" form="editIltSessionForm{{ ilt_session.id }}">Submit</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Edit Form End -->
+
+                  <!-- Delete Data Section Begin -->
+                  <div class="modal fade" id="deleteData{{ ilt_session.id }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="deleteDataLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="deleteDataLabel">Hapus Data</h5>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                          <p class="mb-0">Yakin ingin menghapus data ini?</p>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tidak</button>
+                          <a href="{{ url_for('admin_ilt_session') }}/delete/{{ ilt_session.session_name }}">
+                            <button type="submit" class="btn btn-primary">Iya</button>
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Delete Data End -->
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Admin ILT Session End -->
+
+<!-- Add Form Section Begin -->
+<div class="modal fade" id="addIltSessionModal" tabindex="-1" aria-labelledby="addIltSessionModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addIltSessionModalLabel">Tambah Sesi ILT</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form id="addIltSessionForm" autocomplete="off" action="{{ url_for('admin_ilt_session') }}" method="POST">
+          <div class="mb-3">
+            <label for="title" class="col-form-label">Judul</label>
+            <input type="text" class="form-control" id="title" name="title" required>
+          </div>
+          <div class="mb-3">
+            <label for="learning-path" class="col-form-label">Learning Path</label>
+            <select class="form-select" id="learning-path" name="learning-path" required>
+              <option value="" selected disabled hidden>Pilih learning path</option>
+              <option value="Android">Android</option>
+              <option value="Machine Learning">Machine Learning</option>
+              <option value="Cloud Computing">Cloud Computing</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="session-name" class="col-form-label">Nama Sesi ILT</label>
+            <input type="text" class="form-control" id="session-name" name="session-name" required>
+          </div>
+          <div class="mb-3">
+            <label for="mentor" class="col-form-label">Mentor</label>
+            <input type="text" class="form-control" id="mentor" name="mentor" required>
+          </div>
+          <div class="mb-3">
+            <label for="date" class="col-form-label">Date</label>
+            <input type="date" class="form-control" id="date" name="date" required>
+          </div>
+          <div class="mb-3">
+            <label for="start-time" class="col-form-label">Waktu Mulai</label>
+            <input type="time" class="form-control" id="start-time" name="start-time" required>
+          </div>
+          <div class="mb-3">
+            <label for="end-time" class="col-form-label">Waktu Berakhir</label>
+            <input type="time" class="form-control" id="end-time" name="end-time" required>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-starword-2" form="addIltSessionForm">Submit</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Add Form End -->
+{% endblock %}
+
+{% block javascripts %}
+<script>
+  $(document).ready(function () {
+    $('#dataTable').DataTable();
+  });
+</script>
+<script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
+{% endblock %}

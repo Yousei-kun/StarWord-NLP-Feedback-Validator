@@ -1,0 +1,20 @@
+<nav class="navbar fixed-top navbar-expand-lg navbar-light">
+  <div class="container">
+    <a class="navbar-brand" href="{{ url_for('admin_ilt_session') }}">
+      <h1 class="fw-bold fs-3 my-auto text-cyan">StarWord.</h1>
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto fw-500">
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('admin_ilt_session') }}">Sesi ILT</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('admin_ilt_feedback') }}">Feedback ILT</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

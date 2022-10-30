@@ -1,0 +1,174 @@
+{% extends 'layouts/admin-base.html' %}
+
+{% block title %}StarWord Admin - ILT Feedback{% endblock %}
+
+{% block stylesheets %}
+<link rel="stylesheet" href="../static/css/admin-ilt-feedback.css">
+<link href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+<!-- Admin ILT Feedback Section Begin -->
+<div class="admin-ilt-feedback">
+  <div class="container">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    {% for category, message in messages %}
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+          <p class="mb-0">{{ message }}</p>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="card shadow-sm">
+          <div class="card-header">
+            <div class="d-flex justify-content-between align-items-center px-2">
+              <h4 class="fw-600 fs-5 mb-0">Feedback ILT</h4>
+              <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#downloadCsvModal">Unduh CSV</button>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive p-2">
+              <table class="table table-bordered align-middle" id="dataTable" width="100%" cellspacing="0" style="margin: 1rem 0 2rem !important;">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th style="width: 15%;">Name</th>
+                    <th>Session</th>
+                    <th>Rating</th>
+                    <th style="width: 20%;">Feedback</th>
+                    <th>Relevant</th>
+                    <th>Sentiment</th>
+                    <th>Validity</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for ilt_feedback in ilt_feedback %}
+                  <tr>
+                    <td class="text-center">{{ ilt_feedback.id }}</td>
+                    <td>{{ ilt_feedback.name }}</td>
+                    <td>{{ ilt_feedback.session_name }}</td>
+                    <td class="text-center">{{ ilt_feedback.rating }}</td>
+                    <td>{{ ilt_feedback.feedback }}</td>
+
+                    {% if ilt_feedback.relevant == 1 %}
+                    <td class="text-center">Tidak</td>
+                    {% elif ilt_feedback.relevant == 2 %}
+                    <td class="text-center">Iya</td>
+                    {% else %}
+                    <td class="text-center">-</td>
+                    {% endif %}
+
+                    {% if ilt_feedback.sentiment == 1 %}
+                    <td class="text-center">Negatif</td>
+                    {% elif ilt_feedback.sentiment == 2 %}
+                    <td class="text-center">Positif</td>
+                    {% elif ilt_feedback.sentiment == 3 %}
+                    <td class="text-center">Saran</td>
+                    {% else %}
+                    <td class="text-center">-</td>
+                    {% endif %}
+
+                    {% if ilt_feedback.validity == 1 %}
+                    <td class="text-center">Tidak</td>
+                    {% elif ilt_feedback.validity == 2 %}
+                    <td class="text-center">Iya</td>
+                    {% else %}
+                    <td class="text-center">-</td>
+                    {% endif %}
+
+                    <td class="text-center">
+                      <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteData{{ ilt_feedback.id }}">
+                        <i class="fa-solid fa-trash fs-7"></i>
+                      </button>
+                    </td>
+                  </tr>
+
+                  <!-- Delete Data Section Begin -->
+                  <div class="modal fade" id="deleteData{{ ilt_feedback.id }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="deleteDataLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="deleteDataLabel">Hapus Data</h5>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                          <p class="mb-0">Yakin ingin menghapus data ini?</p>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tidak</button>
+                          <a href="{{ url_for('admin_ilt_feedback') }}/delete/{{ ilt_feedback.id }}">
+                            <button type="submit" class="btn btn-primary">Iya</button>
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Delete Data End -->
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Admin ILT Feedback End -->
+
+<!-- Download CSV Section Begin -->
+<div class="modal fade" id="downloadCsvModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="downloadCsvLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="downloadCsvLabel">Unduh CSV</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <h5 class="fw-bold fs-6 mb-3">Unduh Semua Data</h5>
+        <p class="mb-3">Klik tombol dibawah untuk mengunduh semua data feedback</p>
+        <div class="text-end">
+          <a href="{{ url_for('admin_ilt_feedback') }}/csv">
+            <button type="submit" class="btn btn-starword-2">Unduh</button>
+          </a>
+        </div>
+        <hr>
+        <h5 class="fw-bold fs-6 mb-3">Unduh Berdasarkan Range ID</h5>
+        <form id="downloadRangedCsvForm" autocomplete="off" action="{{ url_for('admin_ilt_feedback') }}/csv/ranged" method="POST">
+          <div class="mb-3">
+            <label for="start-id" class="col-form-label">Id Mulai</label>
+            <input type="number" class="form-control" id="start-id" name="start-id" required>
+          </div>
+          <div class="mb-3">
+            <label for="end-id" class="col-form-label">Id Akhir</label>
+            <input type="number" class="form-control" id="end-id" name="end-id" required>
+          </div>
+        </form>
+        <div class="text-end">
+          <button type="submit" class="btn btn-starword-2" form="downloadRangedCsvForm">Unduh</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Download CSV End -->
+{% endblock %}
+
+{% block javascripts %}
+<script>
+  $(document).ready(function () {
+    $('#dataTable').DataTable();
+  });
+</script>
+<script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
+{% endblock %}

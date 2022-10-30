@@ -1,0 +1,110 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %}StarWord{% endblock %}
+
+{% block content %}
+<!-- Jumbotron Section Begin -->
+<div class="jumbotron d-flex pt-5" id="home">
+  <div class="container my-auto">
+    <div class="row flex-row-reverse align-items-center" style="overflow: hidden;">
+      <div class="col-lg-8" data-aos="fade-left" data-aos-duration="2000">
+        <img src="../static/img/jumbotron.png" class="d-block img-fluid">
+      </div>
+      <div class="col-lg-4 mx-auto">
+        <h2 class="fw-bold fs-1 text-black mb-0">StarWord</h2>
+        <h2 class="fw-bold fs-2 text-black">Feedback Validator</h2>
+        <p class="mb-0">Validasi feedback ILT Dicoding dengan mudah dan akurat</p>
+        <p class="mb-0">Permudah bisnis Anda dengan StarWord</p>
+        <p class="mb-0">ILT Tech dan ILT Soft Skill <span class="fw-bold">semua bisa!</span></p>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Jumbotron End -->
+
+<!-- About Section Begin -->
+<div class="about" id="about">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12 mb-4">
+        <h3 class="fw-bold fs-5 text-cyan hr">Tentang Kami</h3>
+      </div>
+    </div>
+    <div class="row">
+      <div class="about-content-1 col-lg-6">
+        <h4 class="fw-bold fs-3">Membantu Data-driven Framework</h4>
+        <p>Dengan menggunakan data yang akurat dan tepat sasaran, data feedback ILT yang telah Anda kumpulkan akan menjadi katalis untuk pengembangan bisnis Anda.</p>
+      </div>
+      <div class="about-content-2 col-lg-6">
+        <h4 class="fw-bold fs-3">AI-powered Website</h4>
+        <p>StarWord mampu membantu validasi feedback menggunakan teknologi AI dan Natural Languange Processing untuk mempercepat proses inferensi feedback.</p>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- About End -->
+
+<!-- Features Section Begin -->
+<div class="features" id="features">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12 text-center mb-2">
+        <h3 class="fw-bold fs-5 text-cyan hr">Layanan Kami</h3>
+      </div>
+    </div>
+    <div class="row align-items-center" style="overflow: hidden;">
+      <div class="col-lg-5" data-aos="fade-right" data-aos-duration="2000">
+        <img src="../static/img/feature.png" class="d-block img-fluid">
+      </div>
+      <div class="col-lg-7">
+        <h4 class="fw-bold fs-3">Validasi Feedback</h4>
+        <p>Melalui 2 AI yang kami gunakan untuk memberikan inferensi relevansi dan sentimen dari feedback, sebuah validitas feedback dapat diinferensikan dengan mudah!</p>
+        <a class="text-decoration-none" href="{{ url_for('ilt_session') }}">
+          <button type="button" class="btn btn-starword-1 mb-2">Berikan Feedback</button>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Features End -->
+
+<!-- Student Feedback Section Begin -->
+<div class="student-feedback">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12 text-center">
+        <h3 class="fw-bold fs-5 text-white">Apa yang mereka katakan tentang sesi ILT</h3>
+      </div>
+    </div>
+    <div class="row">
+      {% for best_feedback in ilt_feedback_best %}
+      <div class="col-lg-4">
+        <div class="card">
+          <div class="card-body front-card">
+            <img src="../static/img/avatar.png" class="profile">
+            <h5 class="fw-500 fs-6 pt-3 text-uppercase name">{{ best_feedback.name }}</h5>
+            <h5 class="fw-500 fs-7 designation">{{ best_feedback.learning_path }}</h5>
+          </div>
+          <div class="card-body back-card">
+            <span class="fa-solid fa-quote-left"></span>
+            <div class="content">
+              <p class="text-overflow">{{ best_feedback.feedback }}</p>
+            </div>
+            <span class="fa-solid fa-quote-right"></span>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+<!-- Student Feedback End -->
+{% endblock %}
+
+{% block javascripts %}
+<script>
+  AOS.init({
+    once: true
+  });
+</script>
+{% endblock %}

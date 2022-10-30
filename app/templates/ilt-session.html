@@ -1,0 +1,191 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %}StarWord - ILT Session{% endblock %}
+
+{% block stylesheets %}
+<link rel="stylesheet" href="../static/css/ilt-session.css">
+{% endblock %}
+
+{% block content %}
+<!-- ILT Session Section Begin -->
+<div class="ilt-session">
+  <!-- Breadcrump Section Begin -->
+  <div class="sw-breadcrump">
+    <div class="container">
+      <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="#" class="text-decoration-none text-black">Sesi ILT</a></li>
+          <li class="breadcrumb-item"><a href="#" class="text-decoration-none text-black">Cloud Computing</a></li>
+          <li class="breadcrumb-item active" aria-current="page">ILT CC 1</li>
+        </ol>
+      </nav>
+    </div>
+  </div>
+  <!-- Breadcrump End -->
+
+  <!-- ILT Session Selected Section Begin -->
+  <div class="ilt-session-selected">
+    <div class="container">
+      {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+      {% for category, message in messages %}
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+            <p class="mb-0">{{ message }}</p>
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+      {% endif %}
+      {% endwith %}
+      <div class="card rounded-4 p-2">
+        <div class="card-body">
+          <div class="ilt-session-selected__header d-flex justify-content-between align-items-start">
+            <div class="text-white">
+              <div class="mb-3">
+                <h4 class="fw-bold fs-4">{{ ilt_session_detail.title }}</h4>
+                <h5 class="fw-500 fs-6">{{ ilt_session_detail.learning_path }}</h5>
+              </div>
+              <div class="mb-3">
+                <div class="d-flex justify-content-start align-items-center mb-1">
+                  <i class="fa-solid fa-user fs-7 me-2"></i>
+                  <p class="fs-7 mb-0">{{ ilt_session_detail.mentor }}</p>
+                </div>
+                <div class="d-flex justify-content-start align-items-center mb-1">
+                  <i class="fa-solid fa-calendar fs-7 me-2"></i>
+                  <p class="fs-7 mb-0">{{ datetime.strptime(ilt_session_detail.date, '%Y-%m-%d').strftime('%d %B %Y') }}</p>
+                </div>
+                <div class="d-flex justify-content-start align-items-center">
+                  <i class="fa-solid fa-clock fs-7 me-2"></i>
+                  <p class="fs-7 mb-0">{{ datetime.strptime(ilt_session_detail.start_time, '%H:%M:%S').strftime('%H:%M') }} - {{ datetime.strptime(ilt_session_detail.end_time, '%H:%M:%S').strftime('%H:%M') }}</p>
+                </div>
+              </div>
+            </div>
+            <button class="btn btn-light">Gabung Sesi</button>
+          </div>
+          <div class="ilt-session-selected__footer d-flex justify-content-start mt-5">
+            <button class="btn btn-starword-1 me-3">Ambil Quiz</button>
+            <button class="btn btn-light" data-bs-toggle="modal" data-bs-target="#feedbackModal">Beri Feedback</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- ILT Session Selected End -->
+
+  <!-- ILT Session List Section Begin -->
+  <div class="ilt-session-list">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12 mb-4">
+          <h4 class="fw-600 fs-5">Daftar Sesi ILT CC</h4>
+        </div>
+      </div>
+      <div class="row">
+        {% for ilt_path in ilt_session_path %}
+        <div class="col-lg-4 mb-4">
+          <div class="card shadow" style="min-height: 27rem;">
+            <img src="../static/img/cloud.png" class="card-img-top" alt="...">
+            <div class="card-body">
+              <div class="mb-2">
+                <a href="#" class="text-decoration-none text-black">
+                  <h5 class="fw-500">{{ ilt_path.title }}</h5>
+                </a>
+                <h5 class="fw-normal fs-6">{{ ilt_path.learning_path }}</h5>
+              </div>
+              <div class="mb-0">
+                <div class="d-flex justify-content-start align-items-center mb-1">
+                  <i class="fa-solid fa-user fs-7 me-2"></i>
+                  <p class="fs-7 mb-0">{{ ilt_path.mentor }}</p>
+                </div>
+                <div class="d-flex justify-content-start align-items-center mb-1">
+                  <i class="fa-solid fa-calendar fs-7 me-2"></i>
+                  <p class="fs-7 mb-0">{{ datetime.strptime(ilt_path.date, '%Y-%m-%d').strftime('%d %B %Y') }}</p>
+                </div>
+                <div class="d-flex justify-content-start align-items-center">
+                  <i class="fa-solid fa-clock fs-7 me-2"></i>
+                  <p class="fs-7 mb-0">{{ datetime.strptime(ilt_path.start_time, '%H:%M:%S').strftime('%H:%M') }} - {{ datetime.strptime(ilt_path.end_time, '%H:%M:%S').strftime('%H:%M') }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+  <!-- ILT Session List End -->
+</div>
+<!-- ILT Session End -->
+
+<!-- Feedback Form Section Begin -->
+<div class="modal fade" id="feedbackModal" tabindex="-1" aria-labelledby="feedbackModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="feedbackModalLabel">Beri Feedback</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form id="userFeedbackForm" autocomplete="off" action="{{ url_for('ilt_session') }}" method="POST">
+          <div class="mb-3">
+            <label for="name" class="col-form-label">Nama Lengkap</label>
+            <input type="text" class="form-control" id="name" name="name" required>
+          </div>
+          <div class="mb-3">
+            <label for="email" class="col-form-label">Email</label>
+            <input type="email" class="form-control" id="email" name="email" required>
+          </div>
+          <div class="mb-3">
+            <label for="learning-path" class="col-form-label">Learning Path</label>
+            <select class="form-select" id="learning-path" name="learning-path" required>
+              <option value="" selected disabled hidden>Pilih learning path</option>
+              <option value="Android">Android</option>
+              <option value="Machine Learning">Machine Learning</option>
+              <option value="Cloud Computing">Cloud Computing</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="session-name" class="col-form-label">Nama Sesi ILT</label>
+            <div class="input-group">
+              <input type="text" class="form-control editField" id="session-name" name="session-name" value="{{ ilt_session_detail.session_name }}" readonly required>
+              <button class="btn btn-outline-secondary editBtn" type="button" id="button-addon">
+                <i class="fa-solid fa-pen fs-6"></i>
+              </button>
+            </div>
+            <div id="nameHelp" class="form-text">Gunakan tombol edit disamping untuk mengubah nama sesi apabila Anda tidak dapat mengikuti sesi ILT ini.</div>
+          </div>
+          <div class="mb-0">
+            <label for="rating" class="control-label">Berikan Nilai</label>
+            <input id="rating" name="rating" class="rating rating-loading" data-min="0" data-max="5" data-step="1" data-size="sm" required>
+          </div>
+          <div class="mb-3">
+            <label for="feedback" class="col-form-label">Feedback</label>
+            <textarea class="form-control" id="feedback" name="feedback" required></textarea>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-starword-2" form="userFeedbackForm">Submit</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Feedback Form End -->
+{% endblock %}
+
+{% block javascripts %}
+<script>
+  $(document).ready(function () {
+    $('.editBtn').click(function () {
+      if ($('.editField').is('[readonly]')) {
+        $('.editField').prop('readonly', false);
+      } else {
+        $('.editField').prop('readonly', true);
+      }
+    });
+  });
+</script>
+{% endblock %}
